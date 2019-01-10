@@ -358,4 +358,59 @@ Class Model_order extends CI_Model {
 		return $result;
 	}
 
+	function getExportBulan()
+    {
+        $q =    "SELECT 
+                    *
+                FROM 
+                    `pemesanan`
+                WHERE 
+                    MONTH(`created`) = MONTH('". date('Y-m-d') ."');
+                ";
+        $r = $this->db->query($q, false)->result_array();
+
+        return $r;
+    }
+
+    function getExportTahun()
+    {
+        $q =    "SELECT 
+                    *
+                FROM 
+                    `pemesanan`
+                WHERE 
+                    YEAR(`created`) = YEAR('". date('Y-m-d') ."');
+                ";
+        $r = $this->db->query($q, false)->result_array();
+
+        return $r;
+    }
+
+    function getExportTriwulan()
+    {
+    	$y = date('Y');
+    	$m = date('m');
+    	$range = '';
+    	if ($m < 3) {
+    		if ($m == 2) {
+    			$range = '12,1,2';
+    		} else{
+    			$range = '11,12,1';
+    		}
+    	} else{
+    		$range = ($m-2). ',' . ($m-1). ',' . $m;
+    	}
+
+        $q =    "SELECT 
+                    *
+                FROM 
+                    `pemesanan`
+                WHERE 
+                    MONTH(`created`) IN (". $range .");
+                ";
+        $r = $this->db->query($q, false)->result_array();
+
+        return $r;
+    }
+
 }

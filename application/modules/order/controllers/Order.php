@@ -139,4 +139,37 @@ class Order extends MX_Controller {
 
 		echo json_encode($result);
 	}
+
+	function export_bulan()
+    {
+        $data = $this->model->getExportBulan();
+
+        $params['logo']  = base_url('assets/report/logo.png');
+        $params['title'] = 'LAPORAN DAFTAR ORDER';
+        $params['thead'] = array('No.', 'ID Pemesanan', 'Nama Pelanggan', 'Total Order', 'Sub Total', 'Tanggal');
+        $params['tbody'] = $data;
+        $this->load->view('report/order_dapur', $params);
+    }
+
+    function export_triwulan()
+    {
+        $data = $this->model->getExportTriwulan();
+
+        $params['logo']  = base_url('assets/report/logo.png');
+        $params['title'] = 'LAPORAN DAFTAR ORDER';
+        $params['thead'] = array('No.', 'ID Pemesanan', 'Nama Pelanggan', 'Total Order', 'Sub Total', 'Tanggal');
+        $params['tbody'] = $data;
+        $this->load->view('report/order_dapur', $params);
+    }
+
+    function export_tahun()
+    {
+        $data = $this->model->getExportTahun();
+
+        $params['logo']  = base_url('assets/report/logo.png');
+        $params['title'] = 'LAPORAN DAFTAR ORDER';
+        $params['thead'] = array('No.', 'ID Pemesanan', 'Nama Pelanggan', 'Total Order', 'Sub Total', 'Tanggal');
+        $params['tbody'] = $data;
+        $this->load->view('report/order_dapur', $params);
+    }
 }

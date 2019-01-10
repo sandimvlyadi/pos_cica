@@ -22,9 +22,9 @@
           <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Export
           <span class="caret"></span></button>
           <ul class="dropdown-menu" style="margin-left: 175px">
-            <li><a href="<?php echo site_url('order/export_bulan'); ?>">Perbulan</a></li>
-            <li><a href="<?php echo site_url('order/export_triwulan'); ?>">Triwulan</a></li>
-            <li><a href="<?php echo site_url('order/export_tahun'); ?>">Tahun</a></li>
+            <li><a href="<?php echo site_url('order/export_bulan'); ?>" target="_blank">Perbulan</a></li>
+            <li><a href="<?php echo site_url('order/export_triwulan'); ?>" target="_blank">Triwulan</a></li>
+            <li><a href="<?php echo site_url('order/export_tahun'); ?>" target="_blank">Tahun</a></li>
           </ul>
         </div>
 
