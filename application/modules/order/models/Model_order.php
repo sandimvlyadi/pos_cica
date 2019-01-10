@@ -246,8 +246,8 @@ Class Model_order extends CI_Model {
 		$alert = "";
 		$result = "";
 
-		$this->db->where("id_order", $this->uri->segment(3));
-		$exe = $this->db->delete('order');
+		$this->db->where("id_pemesanan", $this->uri->segment(3));
+		$exe = $this->db->delete('pemesanan');
 		if($exe){
 			$result = "success";
 			$alert = "Data berhasil dihapus";
