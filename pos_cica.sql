@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.11
+-- version 4.2.7.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 08 Jan 2019 pada 15.08
--- Versi Server: 5.6.24
--- PHP Version: 5.6.8
+-- Host: localhost
+-- Generation Time: Jan 11, 2019 at 05:35 AM
+-- Server version: 5.5.39
+-- PHP Version: 5.4.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,11 +23,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `account`
+-- Table structure for table `account`
 --
 
 CREATE TABLE IF NOT EXISTS `account` (
-  `code` int(11) NOT NULL,
+`code` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` varchar(200) NOT NULL,
@@ -40,10 +40,10 @@ CREATE TABLE IF NOT EXISTS `account` (
   `status` varchar(30) NOT NULL,
   `datecreated` datetime NOT NULL,
   `dateupdated` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data untuk tabel `account`
+-- Dumping data for table `account`
 --
 
 INSERT INTO `account` (`code`, `name`, `username`, `password`, `email`, `address`, `phone`, `photo`, `role`, `additional`, `status`, `datecreated`, `dateupdated`) VALUES
@@ -53,7 +53,7 @@ INSERT INTO `account` (`code`, `name`, `username`, `password`, `email`, `address
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bahan_baku`
+-- Table structure for table `bahan_baku`
 --
 
 CREATE TABLE IF NOT EXISTS `bahan_baku` (
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `bahan_baku` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `bahan_baku`
+-- Dumping data for table `bahan_baku`
 --
 
 INSERT INTO `bahan_baku` (`id_bahan_baku`, `bahan_baku`, `satuan`, `stok`, `created`, `updated`) VALUES
@@ -76,32 +76,50 @@ INSERT INTO `bahan_baku` (`id_bahan_baku`, `bahan_baku`, `satuan`, `stok`, `crea
 ('BHN201901070003', 'Mie Tektek', 'Pcs', '0', '2019-01-07', '2019-01-07'),
 ('BHN201901070004', 'susu ultra milk', 'Kg', '0', '2019-01-07', '2019-01-07'),
 ('BHN201901070005', 'sayuran', 'Kg', '0', '2019-01-07', '2019-01-07'),
-('BHN201901070006', 'cabe', 'Kg', '0', '2019-01-07', '2019-01-07');
+('BHN201901070006', 'cabe', 'Kg', '0', '2019-01-07', '2019-01-07'),
+('BHN201901080001', 'Garam', 'Gram', '0', '2019-01-08', '2019-01-08'),
+('BHN201901080002', 'Gula Tebu', 'Gram', '0', '2019-01-08', '2019-01-08');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bahan_baku_keluar`
+-- Table structure for table `bahan_baku_keluar`
 --
 
 CREATE TABLE IF NOT EXISTS `bahan_baku_keluar` (
   `id_bahan_baku_keluar` varchar(20) NOT NULL,
+  `id_detail_pemesanan` varchar(20) NOT NULL,
+  `id_produk_update` bigint(20) NOT NULL,
   `id_bahan_baku` varchar(20) NOT NULL,
   `id_produk` varchar(20) NOT NULL,
   `qty` varchar(14) NOT NULL,
   `satuan` varchar(20) NOT NULL,
-  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created` datetime NOT NULL,
+  `updated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bahan_baku_keluar`
+--
+
+INSERT INTO `bahan_baku_keluar` (`id_bahan_baku_keluar`, `id_detail_pemesanan`, `id_produk_update`, `id_bahan_baku`, `id_produk`, `qty`, `satuan`, `created`, `updated`) VALUES
+('BBK201901090001', 'DTN201901090002', 3, 'BHN201901080001', 'PD201901090003', '4', '', '2019-01-09 00:00:00', '2019-01-09 00:00:00'),
+('BBK201901090002', 'DTN201901090002', 3, 'BHN201901080002', 'PD201901090003', '2', '', '2019-01-09 00:00:00', '2019-01-09 00:00:00'),
+('BBK201901090003', 'DTN201901090002', 3, 'BHN201901070006', 'PD201901090003', '10', '', '2019-01-09 00:00:00', '2019-01-09 00:00:00'),
+('BBK201901090004', 'DTN201901090002', 3, 'BHN201901070005', 'PD201901090003', '6', '', '2019-01-09 00:00:00', '2019-01-09 00:00:00'),
+('BBK201901090005', 'DTN201901090003', 1, 'BHN201901080001', 'PD201901090002', '10', '', '2019-01-09 00:00:00', '2019-01-09 00:00:00'),
+('BBK201901090006', 'DTN201901090003', 1, 'BHN201901070005', 'PD201901090002', '10', '', '2019-01-09 00:00:00', '2019-01-09 00:00:00'),
+('BBK201901090007', 'DTN201901090003', 1, 'BHN201901080002', 'PD201901090002', '10', '', '2019-01-09 00:00:00', '2019-01-09 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bahan_baku_masuk`
+-- Table structure for table `bahan_baku_masuk`
 --
 
 CREATE TABLE IF NOT EXISTS `bahan_baku_masuk` (
   `id_bahan_baku_masuk` varchar(20) NOT NULL,
+  `id_produk_update` bigint(20) NOT NULL,
   `id_bahan_baku` varchar(20) NOT NULL,
   `supplier` varchar(100) NOT NULL,
   `lokasi` varchar(100) NOT NULL,
@@ -113,16 +131,35 @@ CREATE TABLE IF NOT EXISTS `bahan_baku_masuk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `bahan_baku_masuk`
+-- Dumping data for table `bahan_baku_masuk`
 --
 
-INSERT INTO `bahan_baku_masuk` (`id_bahan_baku_masuk`, `id_bahan_baku`, `supplier`, `lokasi`, `harga_satuan`, `qty`, `tgl_beli`, `created`, `updated`) VALUES
-('BBM201812190002', 'BHN201812170001', 'Sasa', 'Bandung', '10000', '10', '2018-12-19', '0000-00-00', '0000-00-00');
+INSERT INTO `bahan_baku_masuk` (`id_bahan_baku_masuk`, `id_produk_update`, `id_bahan_baku`, `supplier`, `lokasi`, `harga_satuan`, `qty`, `tgl_beli`, `created`, `updated`) VALUES
+('BBM201901090001', 1, 'BHN201901080001', '', '', '', '12', '2019-01-09', '2019-01-09', '2019-01-09'),
+('BBM201901090002', 1, 'BHN201901070005', '', '', '', '12', '2019-01-09', '2019-01-09', '2019-01-09'),
+('BBM201901090003', 1, 'BHN201901080002', '', '', '', '12', '2019-01-09', '2019-01-09', '2019-01-09'),
+('BBM201901090007', 3, 'BHN201901080001', '', '', '', '10', '2019-01-09', '2019-01-09', '2019-01-09'),
+('BBM201901090008', 3, 'BHN201901080002', '', '', '', '5', '2019-01-09', '2019-01-09', '2019-01-09'),
+('BBM201901090009', 3, 'BHN201901070006', '', '', '', '25', '2019-01-09', '2019-01-09', '2019-01-09'),
+('BBM201901090010', 3, 'BHN201901070005', '', '', '', '15', '2019-01-09', '2019-01-09', '2019-01-09'),
+('BBM201901100001', 4, 'BHN201901080001', '', '', '', '246', '2019-01-10', '2019-01-10', '2019-01-10'),
+('BBM201901100002', 4, 'BHN201901080002', '', '', '', '123', '2019-01-10', '2019-01-10', '2019-01-10'),
+('BBM201901100003', 4, 'BHN201901070006', '', '', '', '615', '2019-01-10', '2019-01-10', '2019-01-10'),
+('BBM201901100004', 4, 'BHN201901070005', '', '', '', '369', '2019-01-10', '2019-01-10', '2019-01-10'),
+('BBM201901100005', 5, 'BHN201901080002', '', '', '', '12', '2019-01-10', '2019-01-10', '2019-01-10'),
+('BBM201901100006', 5, 'BHN201812170001', '', '', '', '36', '2019-01-10', '2019-01-10', '2019-01-10'),
+('BBM201901100007', 5, 'BHN201901070004', '', '', '', '12', '2019-01-10', '2019-01-10', '2019-01-10'),
+('BBM201901100008', 5, 'BHN201901070002', '', '', '', '12', '2019-01-10', '2019-01-10', '2019-01-10'),
+('BBM201901100009', 6, 'BHN201901070003', '', '', '', '33', '2019-01-10', '2019-01-10', '2019-01-10'),
+('BBM201901100010', 6, 'BHN201901070004', '', '', '', '33', '2019-01-10', '2019-01-10', '2019-01-10'),
+('BBM201901100011', 6, 'BHN201901070006', '', '', '', '33', '2019-01-10', '2019-01-10', '2019-01-10'),
+('BBM201901100012', 6, 'BHN201901070005', '', '', '', '33', '2019-01-10', '2019-01-10', '2019-01-10'),
+('BBM201901100013', 7, 'BHN201812170001', '', '', '', '45', '2019-01-10', '2019-01-10', '2019-01-10');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_pemesanan`
+-- Table structure for table `detail_pemesanan`
 --
 
 CREATE TABLE IF NOT EXISTS `detail_pemesanan` (
@@ -139,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `detail_pemesanan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `detail_pemesanan`
+-- Dumping data for table `detail_pemesanan`
 --
 
 INSERT INTO `detail_pemesanan` (`id_detail_pemesanan`, `id_pemesanan`, `id_produk`, `qty_beli`, `sub_total`, `created`, `updated`, `promo`, `tipe_promo`, `potongan_harga`) VALUES
@@ -158,12 +195,16 @@ INSERT INTO `detail_pemesanan` (`id_detail_pemesanan`, `id_pemesanan`, `id_produ
 ('DTN201812260004', 'TRN201812260002', 'PD201812210002', '1', '10000', '2018-12-26', '2018-12-26', 'Akhir Tahun', 'Diskon', '20'),
 ('DTN201812270001', 'TRN201812270001', 'PD201812200002', '1', '10000', '2018-12-27', '2018-12-27', '', '', ''),
 ('DTN201812270002', 'TRN201812270001', 'PD201812210001', '2', '30000', '2018-12-27', '2018-12-27', '', '', ''),
-('DTN201901040001', 'TRN201901040001', 'PD201812250001', '1', '10000', '2019-01-04', '2019-01-04', '', '', '');
+('DTN201901040001', 'TRN201901040001', 'PD201812250001', '1', '10000', '2019-01-04', '2019-01-04', '', '', ''),
+('DTN201901080001', 'TRN201901080001', 'PD201901070001', '7', '77000', '2019-01-08', '2019-01-08', 'Pelajar', 'Diskon', '10'),
+('DTN201901090001', 'TRN201901090001', 'PD201901090003', '3', '81000', '2019-01-09', '2019-01-09', '', '', ''),
+('DTN201901090002', 'TRN201901090002', 'PD201901090003', '2', '54000', '2019-01-09', '2019-01-09', '', '', ''),
+('DTN201901090003', 'TRN201901090002', 'PD201901090002', '10', '25000', '2019-01-09', '2019-01-09', '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_produk`
+-- Table structure for table `detail_produk`
 --
 
 CREATE TABLE IF NOT EXISTS `detail_produk` (
@@ -176,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `detail_produk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `detail_produk`
+-- Dumping data for table `detail_produk`
 --
 
 INSERT INTO `detail_produk` (`id_detail`, `id_bahan_baku`, `bahan_baku`, `id_produk`, `qty`, `satuan`) VALUES
@@ -188,12 +229,20 @@ INSERT INTO `detail_produk` (`id_detail`, `id_bahan_baku`, `bahan_baku`, `id_pro
 ('DP201901070002', 'BHN201901070003', 'Mie Tektek', 'PD201901070002', '1', 'Pcs'),
 ('DP201901070003', 'BHN201901070004', 'susu ultra milk', 'PD201901070002', '1', 'Kg'),
 ('DP201901070004', 'BHN201901070006', 'cabe', 'PD201901070002', '1', 'Kg'),
-('DP201901070005', 'BHN201901070005', 'sayuran', 'PD201901070002', '1', 'Kg');
+('DP201901070005', 'BHN201901070005', 'sayuran', 'PD201901070002', '1', 'Kg'),
+('DP201901090001', 'BHN201901080002', 'Gula Tebu', 'PD201901090001', '1', 'Gram'),
+('DP201901090002', 'BHN201812170001', 'Essense Strawberry', 'PD201901090001', '3', 'Pcs'),
+('DP201901090003', 'BHN201901070004', 'susu ultra milk', 'PD201901090001', '1', 'Kg'),
+('DP201901090004', 'BHN201901070002', 'Essense Coklat', 'PD201901090001', '1', 'Kg'),
+('DP201901090008', 'BHN201901080001', 'Garam', 'PD201901090003', '2', 'Gram'),
+('DP201901090009', 'BHN201901080002', 'Gula Tebu', 'PD201901090003', '1', 'Gram'),
+('DP201901090010', 'BHN201901070006', 'cabe', 'PD201901090003', '5', 'Kg'),
+('DP201901090011', 'BHN201901070005', 'sayuran', 'PD201901090003', '3', 'Kg');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategori`
+-- Table structure for table `kategori`
 --
 
 CREATE TABLE IF NOT EXISTS `kategori` (
@@ -204,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kategori`
+-- Dumping data for table `kategori`
 --
 
 INSERT INTO `kategori` (`id_kategori`, `kategori`, `created`, `updated`) VALUES
@@ -225,20 +274,20 @@ INSERT INTO `kategori` (`id_kategori`, `kategori`, `created`, `updated`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `no_meja`
+-- Table structure for table `no_meja`
 --
 
 CREATE TABLE IF NOT EXISTS `no_meja` (
-  `id_no_meja` int(11) NOT NULL,
+`id_no_meja` int(11) NOT NULL,
   `no_meja` varchar(10) NOT NULL,
   `created` date NOT NULL,
   `updated` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pemesanan`
+-- Table structure for table `pemesanan`
 --
 
 CREATE TABLE IF NOT EXISTS `pemesanan` (
@@ -255,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `pemesanan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pemesanan`
+-- Dumping data for table `pemesanan`
 --
 
 INSERT INTO `pemesanan` (`id_pemesanan`, `author`, `pelanggan`, `no_meja`, `total`, `total_order`, `catatan`, `created`, `updated`, `notif`) VALUES
@@ -265,16 +314,18 @@ INSERT INTO `pemesanan` (`id_pemesanan`, `author`, `pelanggan`, `no_meja`, `tota
 ('TRN201812250003', 'ningsih', 'Dewangga', '6', '11000', '1', '', '2018-12-25 13:14:23', '2018-12-25 13:14:23', '1'),
 ('TRN201812250004', 'ningsih', 'Dewangga', '3', '11000', '1', '', '2018-12-25 13:19:10', '2018-12-25 13:19:10', '1'),
 ('TRN201812260001', 'ningsih', 'Pras Wipol', '4', '42900', '3', '', '2018-12-26 21:02:59', '2018-12-26 21:02:59', '1'),
-('TRN201901040001', 'kasir', 'kiki', '5', '11000', '1', '', '2019-01-04 13:21:23', '2019-01-04 13:21:23', '1');
+('TRN201901040001', 'kasir', 'kiki', '5', '11000', '1', '', '2019-01-04 13:21:23', '2019-01-04 13:21:23', '1'),
+('TRN201901080001', 'kasir', 'udin', '1', '76230', '1', '', '2019-01-08 21:54:38', '2019-01-08 21:54:38', '1');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produk`
+-- Table structure for table `produk`
 --
 
 CREATE TABLE IF NOT EXISTS `produk` (
   `id_produk` varchar(20) NOT NULL,
+  `tgl_produk` date DEFAULT NULL,
   `nama_produk` varchar(255) NOT NULL,
   `gambar` varchar(100) NOT NULL,
   `id_kategori` varchar(20) NOT NULL,
@@ -282,21 +333,55 @@ CREATE TABLE IF NOT EXISTS `produk` (
   `deskripsi` text NOT NULL,
   `status` varchar(11) NOT NULL,
   `created` date NOT NULL,
-  `updated` date NOT NULL
+  `updated` date NOT NULL,
+  `stok_baru` int(11) DEFAULT NULL,
+  `sisa_stok` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `produk`
+-- Dumping data for table `produk`
 --
 
-INSERT INTO `produk` (`id_produk`, `nama_produk`, `gambar`, `id_kategori`, `harga`, `deskripsi`, `status`, `created`, `updated`) VALUES
-('PD201901070001', 'Susu Stroberi', '20190107225516.jpg', 'KTG201901070001', '11000', 'Susu dengan rasa Strawberry', 'Aktif', '2019-01-07', '2019-01-07'),
-('PD201901070002', 'Mie kuah susu', '20190107230632.jpg', 'KTG201901070003', '11000', 'Mie dengan Kuah susu ', 'Aktif', '2019-01-07', '2019-01-07');
+INSERT INTO `produk` (`id_produk`, `tgl_produk`, `nama_produk`, `gambar`, `id_kategori`, `harga`, `deskripsi`, `status`, `created`, `updated`, `stok_baru`, `sisa_stok`) VALUES
+('PD201901070001', NULL, 'Susu Stroberi', '20190107225516.jpg', 'KTG201901070001', '11000', 'Susu dengan rasa Strawberry', 'Aktif', '2019-01-07', '2019-01-07', NULL, NULL),
+('PD201901070002', NULL, 'Mie kuah susu', '20190107230632.jpg', 'KTG201901070003', '11000', 'Mie dengan Kuah susu ', 'Aktif', '2019-01-07', '2019-01-07', NULL, NULL),
+('PD201901090001', '2019-01-09', 'Susu Murni Pangalengan', 'default.jpg', 'KTG201901070001', '7000', 'Susu murni yang sudah tidak murni', 'Aktif', '2019-01-09', '2019-01-09', 30, 0),
+('PD201901090003', '2019-01-09', 'Empal Gentong', 'default.jpg', 'KTG201901070003', '27000', 'Empal yang dimasak didalam gentong', 'Aktif', '2019-01-09', '2019-01-09', 23, 21);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `promo`
+-- Table structure for table `produk_update`
+--
+
+CREATE TABLE IF NOT EXISTS `produk_update` (
+`id_produk_update` bigint(20) NOT NULL,
+  `id_produk` varchar(20) NOT NULL,
+  `tgl_produk` date DEFAULT NULL,
+  `nama_produk` varchar(255) NOT NULL,
+  `harga` varchar(14) NOT NULL,
+  `created` date NOT NULL,
+  `updated` date NOT NULL,
+  `stok_baru` int(11) DEFAULT NULL,
+  `sisa_stok` int(11) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `produk_update`
+--
+
+INSERT INTO `produk_update` (`id_produk_update`, `id_produk`, `tgl_produk`, `nama_produk`, `harga`, `created`, `updated`, `stok_baru`, `sisa_stok`) VALUES
+(1, 'PD201901090002', '2019-01-09', 'Surabi Hijrah', '2500', '2019-01-09', '2019-01-09', 12, 2),
+(3, 'PD201901090003', '2019-01-09', 'Empal Gentong', '27000', '2019-01-09', '2019-01-09', 5, 7),
+(4, 'PD201901090003', '2019-01-10', 'Empal Gentong', '27000', '2019-01-10', '2019-01-10', 123, 123),
+(5, 'PD201901090001', '2019-01-10', 'Susu Murni Pangalengan', '7000', '2019-01-10', '2019-01-10', 12, 12),
+(6, 'PD201901070002', '2019-01-10', 'Mie kuah susu', '11000', '2019-01-10', '2019-01-10', 33, 33),
+(7, 'PD201901070001', '2019-01-10', 'Susu Stroberi', '11000', '2019-01-10', '2019-01-10', 45, 45);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `promo`
 --
 
 CREATE TABLE IF NOT EXISTS `promo` (
@@ -311,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `promo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `promo`
+-- Dumping data for table `promo`
 --
 
 INSERT INTO `promo` (`id_promo`, `nama_promo`, `tipe_promo`, `potongan_harga`, `diskon`, `created`, `updated`, `status`) VALUES
@@ -326,67 +411,73 @@ INSERT INTO `promo` (`id_promo`, `nama_promo`, `tipe_promo`, `potongan_harga`, `
 -- Indexes for table `account`
 --
 ALTER TABLE `account`
-  ADD PRIMARY KEY (`code`);
+ ADD PRIMARY KEY (`code`);
 
 --
 -- Indexes for table `bahan_baku`
 --
 ALTER TABLE `bahan_baku`
-  ADD PRIMARY KEY (`id_bahan_baku`);
+ ADD PRIMARY KEY (`id_bahan_baku`);
 
 --
 -- Indexes for table `bahan_baku_keluar`
 --
 ALTER TABLE `bahan_baku_keluar`
-  ADD PRIMARY KEY (`id_bahan_baku_keluar`);
+ ADD PRIMARY KEY (`id_bahan_baku_keluar`);
 
 --
 -- Indexes for table `bahan_baku_masuk`
 --
 ALTER TABLE `bahan_baku_masuk`
-  ADD PRIMARY KEY (`id_bahan_baku_masuk`);
+ ADD PRIMARY KEY (`id_bahan_baku_masuk`);
 
 --
 -- Indexes for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  ADD PRIMARY KEY (`id_detail_pemesanan`);
+ ADD PRIMARY KEY (`id_detail_pemesanan`);
 
 --
 -- Indexes for table `detail_produk`
 --
 ALTER TABLE `detail_produk`
-  ADD PRIMARY KEY (`id_detail`);
+ ADD PRIMARY KEY (`id_detail`);
 
 --
 -- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
-  ADD PRIMARY KEY (`id_kategori`);
+ ADD PRIMARY KEY (`id_kategori`);
 
 --
 -- Indexes for table `no_meja`
 --
 ALTER TABLE `no_meja`
-  ADD PRIMARY KEY (`id_no_meja`);
+ ADD PRIMARY KEY (`id_no_meja`);
 
 --
 -- Indexes for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  ADD PRIMARY KEY (`id_pemesanan`);
+ ADD PRIMARY KEY (`id_pemesanan`);
 
 --
 -- Indexes for table `produk`
 --
 ALTER TABLE `produk`
-  ADD PRIMARY KEY (`id_produk`);
+ ADD PRIMARY KEY (`id_produk`);
+
+--
+-- Indexes for table `produk_update`
+--
+ALTER TABLE `produk_update`
+ ADD PRIMARY KEY (`id_produk_update`);
 
 --
 -- Indexes for table `promo`
 --
 ALTER TABLE `promo`
-  ADD PRIMARY KEY (`id_promo`);
+ ADD PRIMARY KEY (`id_promo`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -396,12 +487,17 @@ ALTER TABLE `promo`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `code` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `no_meja`
 --
 ALTER TABLE `no_meja`
-  MODIFY `id_no_meja` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_no_meja` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `produk_update`
+--
+ALTER TABLE `produk_update`
+MODIFY `id_produk_update` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
