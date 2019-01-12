@@ -27,7 +27,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background: url(http://localhost/pos_cica/assets/report/logo.png); background-size: 10%; background-repeat: repeat-x repeat-y;">
 <div class="login-box">
   <div class="login-logo">
     <a href="#"><b>PAGE</b> LOGIN</a>

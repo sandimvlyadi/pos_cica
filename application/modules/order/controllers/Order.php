@@ -36,12 +36,24 @@ class Order extends MX_Controller {
 	{
 		$simpan = $this->model->insertData();
 		if($simpan['result'] == "success"){
-			$this->session->set_flashdata('success', $simpan['alert']);
-			redirect('order/index');
+			//$this->session->set_flashdata('success', $simpan['alert']);
+			$id_pemesanan = $this->input->post('id_pemesanan');
+			//redirect('order/');
+			redirect('order/cetak/'. $id_pemesanan);
 		}else{
 			$this->session->set_flashdata('danger', $simpan['alert']);
 			redirect('order/add');
 		}
+	}
+
+	public function cetak($id_pemesanan = '')
+	{
+		$data = array(
+			'pemesanan' => $this->model->get_pemesanan_by_id($id_pemesanan), 
+			'order' 	=> $this->model->get_order_by_id($id_pemesanan),
+			'origin' 	=> $this->model->get_origin_total_by_id($id_pemesanan)
+		);
+		$this->load->view('struk', $data);
 	}
 
 	public function getDetailProduk(){

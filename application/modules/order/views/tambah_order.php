@@ -124,14 +124,6 @@
                 </thead>
                 <tbody id="dataOrder">
                 </tbody>
-                <!-- <tfoot>
-                <tr>
-                  <th>No</th>
-                  <th>Name Product</th>
-                  <th>Qty</th>
-                  <th>Subtotal</th>
-                </tr>
-                </tfoot> -->
               </table>
 
               <!-- textarea -->
@@ -162,6 +154,7 @@
                   </div>
                   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <p>
+                      <input type="hidden" name="txtPajak" id="txtPajak" />
                       <font class="pull-right" id="pajak"><b>0</b></font>
                     </p>
                   </div>
@@ -271,6 +264,7 @@
       $('#bayar').on('keyup keypress blur change', function(e) {
         bayar = $("#bayar").val();
         total = $("#txtTotal").val();
+        pajak = $("#txtPajak").val();
         kembali = bayar - total;
 
         $("#kembali").html(accounting.formatNumber(kembali, 0, ".", ","));
@@ -482,6 +476,8 @@
                 });
 
                 $("#txtTotal").val(total);
+
+                $("#txtPajak").val(pajak);
 
                 $("#total_order").val(no);
 

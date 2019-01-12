@@ -23,6 +23,39 @@ Class Model_order extends CI_Model {
 		return $query->result();
 	}
 
+	function get_pemesanan_by_id($id = '')
+	{
+		$q = "SELECT * FROM `pemesanan` WHERE `id_pemesanan` = '". $id ."';";
+		$r = $this->db->query($q, false)->result_array();
+		return $r;
+	}
+
+	function get_order_by_id($id = '')
+	{
+		$q = 	"SELECT 
+					b.`nama_produk`,
+					a.`qty_beli`,
+					a.`sub_total`
+				FROM 
+					`detail_pemesanan` a
+				LEFT JOIN
+					`produk` b
+						ON
+					a.`id_produk` = b.`id_produk`
+				WHERE 
+					`id_pemesanan` = '". $id ."';
+				";
+		$r = $this->db->query($q, false)->result_array();
+		return $r;
+	}
+
+	function get_origin_total_by_id($id = '')
+	{
+		$q = "SELECT SUM(`sub_total`) AS sub_total FROM `detail_pemesanan` WHERE `id_pemesanan` = '". $id ."';";
+		$r = $this->db->query($q, false)->result_array();
+		return $r;
+	}
+
 	function getDataOrder($id_pemesanan){
 		$this->db->select("*");
 		$this->db->from('detail_pemesanan');
@@ -63,18 +96,23 @@ Class Model_order extends CI_Model {
 		$alert = "";
 		$result = "";
 
-		//`id_pemesanan`, `author`, `pelanggan`, `no_meja`, `total`, `total_order`, `catatan`, `created`, `updated`
+		$total = $this->input->post('txtTotal');
+		$bayar = $this->input->post('bayar');
+		$kembali = $bayar - $total;
 		$data = array(
-	        'id_pemesanan' => $this->input->post('id_pemesanan'),
-	        'author' => $this->session->userdata('username'),
-	        'pelanggan' => $this->input->post('pelanggan'),
-	        'no_meja'=> $this->input->post('no_meja'),
-	        'total'=>$this->input->post('txtTotal'),
-	        'total_order'=>$this->input->post('total_order'),
-	        'catatan'=>$this->input->post('catatan'),
-	        'created' => date("Y-m-d H:i:s"),
-	        'updated' => date("Y-m-d H:i:s"),
-	        'notif' => '0'
+	        'id_pemesanan' 	=> $this->input->post('id_pemesanan'),
+	        'author' 		=> $this->session->userdata('username'),
+	        'pelanggan' 	=> $this->input->post('pelanggan'),
+	        'no_meja'		=> $this->input->post('no_meja'),
+	        'total'			=> $this->input->post('txtTotal'),
+	        'pajak'			=> $this->input->post('txtPajak'),
+	        'total_order'	=> $this->input->post('total_order'),
+	        'bayar'			=> $this->input->post('bayar'),
+	        'kembali'		=> $kembali,
+	        'catatan'		=> $this->input->post('catatan'),
+	        'created' 		=> date("Y-m-d H:i:s"),
+	        'updated' 		=> date("Y-m-d H:i:s"),
+	        'notif' 		=> '0'
 		);
 
 		$simpan = $this->db->insert('pemesanan', $data);
