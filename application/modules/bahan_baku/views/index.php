@@ -24,7 +24,7 @@
                         <td><?=$no++;?></td>
 						<td><?php echo $b['id_bahan_baku']; ?></td>
 						<td><?php echo $b['bahan_baku']; ?></td>
-						<td><?php echo $b['stok']; ?> <?php echo $b['satuan']; ?></td>
+						<td><?php echo $b['satuan']; ?></td>
 						<td><?php echo date("d/M/Y", strtotime($b['created'])); ?></td>
 						<td><?php echo date("d/M/Y", strtotime($b['updated'])); ?></td>
 						<td>
