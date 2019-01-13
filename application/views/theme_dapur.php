@@ -158,7 +158,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </span>
           </a>
           <ul class="treeview-menu">
-            <!-- <li><a href="<?=base_url('bahan_baku');?>"><i class="fa fa-circle"></i> Bahan Baku</a></li> -->
+            <li><a href="<?=base_url('bahan_baku');?>"><i class="fa fa-circle"></i> Bahan Baku</a></li>
             <li><a href="<?=base_url('bahan_baku_masuk_baru');?>"><i class="fa fa-circle"></i> Bahan Baku Masuk</a></li>
             <!--<li><a href="<?=base_url('bahan_baku_keluar_baru');?>"><i class="fa fa-circle"></i> Bahan Baku Keluar</a></li>-->
           </ul>
