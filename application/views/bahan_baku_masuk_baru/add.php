@@ -31,6 +31,7 @@
 						<label for="stok_baru" class="control-label">Stok</label>
 						<div class="form-group">
 							<input type="number" name="stok_baru" class="form-control" id="stok_baru" required="" />
+              <input type="hidden" name="sisa_stok" class="form-control" id="sisa_stok" />
 						</div>
 					</div>
 				</div>
@@ -73,6 +74,23 @@
             	console.log(jqXHR.responseText);
             	alert(jqXHR.responseText);
           	}
+        });
+
+      url = "<?php echo site_url();?>bahan_baku_masuk_baru/loadStok/";
+      $.ajax({
+            type:'POST',
+            url: url,
+            data:"id_produk="+id_produk,
+            dataType: "JSON",
+            success: function(response){
+              var json = JSON.parse(JSON.stringify(response));
+              $('#sisa_stok').val(json[0].sisa_stok);
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+              console.log(jqXHR.responseText);
+              alert(jqXHR.responseText);
+            }
         });
   	}
 </script>

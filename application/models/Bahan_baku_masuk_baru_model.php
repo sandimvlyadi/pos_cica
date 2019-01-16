@@ -30,7 +30,7 @@ class Bahan_baku_masuk_baru_model extends CI_Model
 
     function get_all_produk()
     {
-        $q = "SELECT * FROM `produk_update` WHERE `tgl_produk` = '". date('Y-m-d') ."';";
+        $q = "SELECT * FROM `produk_update`;";
         $r = $this->db->query($q, false)->result_array();
 
         return $r;
@@ -105,6 +105,14 @@ class Bahan_baku_masuk_baru_model extends CI_Model
     function loadBahanBaku($id_produk = '')
     {
         $q = "SELECT * FROM `detail_produk` WHERE `id_produk` = '". $id_produk ."';";
+        $r = $this->db->query($q, false)->result_array();
+
+        return $r;
+    }
+
+    function loadStok($id_produk = '')
+    {
+        $q = "SELECT SUM(`sisa_stok`) AS `sisa_stok` FROM `produk_update` WHERE `id_produk` = '". $id_produk ."';";
         $r = $this->db->query($q, false)->result_array();
 
         return $r;

@@ -32,11 +32,12 @@ class Bahan_baku_masuk_baru extends CI_Controller{
             $tgl_produk = $this->input->post('tgl_produk');
             $id_produk  = $this->input->post('id_produk');
             $stok_baru  = $this->input->post('stok_baru');
+            $sisa_stok  = $this->input->post('sisa_stok');
 
             $params = array(
 				'tgl_produk'    => $tgl_produk,
                 'id_produk'     => $id_produk,
-                'stok_baru'     => $stok_baru
+                'stok_baru'     => $stok_baru + $sisa_stok
             );
 
             $this->Bahan_baku_masuk_baru_model->add_produk_update($params);
@@ -109,6 +110,15 @@ class Bahan_baku_masuk_baru extends CI_Controller{
         $id_produk = $this->input->post('id_produk');
 
         $data = $this->Bahan_baku_masuk_baru_model->loadBahanBaku($id_produk);
+
+        echo json_encode($data);
+    }
+
+    function loadStok()
+    {
+        $id_produk = $this->input->post('id_produk');
+
+        $data = $this->Bahan_baku_masuk_baru_model->loadStok($id_produk);
 
         echo json_encode($data);
     }
