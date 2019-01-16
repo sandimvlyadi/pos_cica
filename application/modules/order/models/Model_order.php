@@ -165,7 +165,7 @@ Class Model_order extends CI_Model {
 	        'sub_total' => $sub_total,
 	        'created' => date("Y-m-d H:i:s"),
 	        'updated' => date("Y-m-d H:i:s"),
-	        'promo' => $nama_promo,
+	        'id_promo' => $promo,
 	        'potongan_harga' => $potongan_harga,
 	        'tipe_promo'=>$tipe_promo
 		);
