@@ -25,7 +25,7 @@
 						</div>
 					</div>
 					<div class="col-md-12" id="listBahanBaku">
-						<label for="id_bahan_baku" class="control-label">List Bahan Baku</label>
+						<label for="id_bahan_baku" class="control-label">List Bahan Baku: </label>
 					</div>
 					<div class="col-md-12">
 						<label for="stok_baru" class="control-label">Stok Baru</label>
@@ -33,10 +33,18 @@
 							<input type="number" name="stok_baru" class="form-control" id="stok_baru" required="" />
 						</div>
 					</div>
-          <div class="col-md-12">
-            <label for="stok_baru" class="control-label">Stok Sisa</label>
+          <div class="col-md-2">
+            <label for="stok_sisa" class="control-label">Stok Sisa</label>
             <div class="form-group">
-              <input type="number" name="sisa_stok" class="form-control" id="sisa_stok" required="" />
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <button id="btn_min" name="btn_min" class="btn btn-danger" type="button">-</button>
+                </span>
+                <input type="text" name="sisa_stok" value="0" class="form-control" id="sisa_stok" style="text-align: center;" required="" readonly="" />
+                <span class="input-group-btn">
+                  <button id="btn_plus" name="btn_plus" class="btn btn-success" type="button">+</button>
+                </span>
+              </div>
             </div>
           </div>
 				</div>
@@ -52,7 +60,20 @@
 </div>
 <script type="text/javascript">
   	$(document).ready(function() {
-    	
+    	$("#btn_min").click(function(){
+        var stok = parseInt($("#sisa_stok").val());
+        if (stok > 0 && stok != null) {
+          stok -= 1;
+          $("#sisa_stok").val(stok);
+        }
+      });
+      $("#btn_plus").click(function(){
+        var stok = parseInt($("#sisa_stok").val());
+        if (stok != null) {
+          stok += 1;
+          $("#sisa_stok").val(stok);
+        }
+      });
   	});
 
   	$("#id_produk").change(function() {
@@ -89,7 +110,12 @@
             dataType: "JSON",
             success: function(response){
               var json = JSON.parse(JSON.stringify(response));
-              $('#sisa_stok').val(json[0].sisa_stok);
+              if (json[0].sisa_stok == null) {
+                $('#sisa_stok').val(0);
+              }else{
+                $('#sisa_stok').val(json[0].sisa_stok);
+              }
+              
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
