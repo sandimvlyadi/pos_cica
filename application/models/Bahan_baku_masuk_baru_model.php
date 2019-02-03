@@ -30,7 +30,7 @@ class Bahan_baku_masuk_baru_model extends CI_Model
 
     function get_all_produk()
     {
-        $q = "SELECT * FROM `produk_update`;";
+        $q = "SELECT * FROM `produk_update` ORDER BY `created` DESC;";
         $r = $this->db->query($q, false)->result_array();
 
         return $r;

@@ -28,12 +28,17 @@
 						<label for="id_bahan_baku" class="control-label">List Bahan Baku</label>
 					</div>
 					<div class="col-md-12">
-						<label for="stok_baru" class="control-label">Stok</label>
+						<label for="stok_baru" class="control-label">Stok Baru</label>
 						<div class="form-group">
 							<input type="number" name="stok_baru" class="form-control" id="stok_baru" required="" />
-              <input type="hidden" name="sisa_stok" class="form-control" id="sisa_stok" />
 						</div>
 					</div>
+          <div class="col-md-12">
+            <label for="stok_baru" class="control-label">Stok Sisa</label>
+            <div class="form-group">
+              <input type="number" name="sisa_stok" class="form-control" id="sisa_stok" required="" />
+            </div>
+          </div>
 				</div>
 			</div>
           	<div class="box-footer">
